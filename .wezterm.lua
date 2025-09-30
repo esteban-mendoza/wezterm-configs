@@ -7,12 +7,12 @@ local config = wezterm.config_builder()
 
 -- Key bindings for macOS word and line navigation
 config.keys = {
-	-- Option + Left Arrow: Move to beginning of word
+    -- Option + Left Arrow: Move to beginning of word
 	{
 		key = 'LeftArrow',
 		mods = 'OPT',
-		action = act.SendString '\x1bb',  -- Alt+b (backward word)
-	},
+		action = act.SendString '\x1bb',  -- Alt+b (backward word),
+    },
 	-- Option + Right Arrow: Move to end of word
 	{
 		key = 'RightArrow',
@@ -49,6 +49,24 @@ config.keys = {
 		mods = 'CMD',
 		action = act.SendString '\x15',  -- Ctrl+u (delete to beginning of line)
 	},
+	-- Cmd + Z: Undo
+    {
+        key = 'z',
+        mods = 'CMD',
+        action = act.SendString '\x1f',  -- Ctrl+_ (standard terminal undo)
+    },
+    -- Cmd + Shift + Z: Redo
+    {
+        key = 'Z',
+        mods = 'CMD|SHIFT',
+        action = act.SendString '\x18\x1f',  -- Ctrl+X Ctrl+_ (redo sequence)
+    },
+    -- Shift + Return: New Line
+    {
+        key = 'Enter',
+        mods = 'SHIFT',
+        action = act.SendString '\x1b\r',
+    },
 }
 
 -- or, changing the font size and color scheme.
@@ -57,8 +75,8 @@ config.font_size = 13
 
 -- Set initial geometry
 config.initial_cols = 110
-config.initial_rows = 20
-config.window_decorations = "NONE"
+config.initial_rows = 30
+config.window_decorations = "RESIZE"
 
 -- Opacity
 config.window_background_opacity = 0.7
@@ -80,7 +98,7 @@ wezterm.on("gui-startup", function(cmd)
 	local height = gui_window:get_dimensions().pixel_height
 
 	-- Calculate center position
-	local x = (screen.width - width) * 0.7
+	local x = (screen.width - width) * 0.65
 	local y = (screen.height - height) * 0.8
 
 	-- Set the position to center the window
