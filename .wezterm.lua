@@ -60,7 +60,11 @@ config.keys = {
         key = 'Z',
         mods = 'CMD|SHIFT',
         action = act.SendString '\x18\x1f', -- Ctrl+X Ctrl+_ (redo sequence)
-    }
+    },
+	-- Cmd + '+' to Increase font size
+  	{ key = '+', mods = 'CMD', action = wezterm.action.IncreaseFontSize },
+	-- Cmd + '-' to Decrease font size
+	{ key = '-', mods = 'CMD', action = wezterm.action.DecreaseFontSize }
 }
 
 -- or, changing the font size and color scheme.
@@ -70,10 +74,10 @@ config.font_size = 13
 -- Set initial geometry
 config.initial_cols = 110
 config.initial_rows = 30
-config.window_decorations = "NONE|RESIZE"
+config.window_decorations = "NONE|RESIZE|INTEGRATED_BUTTONS"
 
 -- Opacity
-config.window_background_opacity = 0.65
+config.window_background_opacity = 0.75
 
 -- Start screen centered with specific character dimensions
 wezterm.on("gui-startup", function(cmd)
