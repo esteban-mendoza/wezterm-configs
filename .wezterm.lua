@@ -93,9 +93,8 @@ config.keys = {
     }
 }
 
--- or, changing the font size and color scheme.
+-- Font size
 config.font_size = 13
--- config.color_scheme = 'AdventureTime'
 
 -- Set initial geometry
 config.initial_cols = 110
@@ -105,27 +104,29 @@ config.window_decorations = "NONE|RESIZE|INTEGRATED_BUTTONS"
 -- Opacity
 config.window_background_opacity = 0.75
 
+-- Split pane contrast
+config.colors = {
+    split = '#ffffff',
+}
+
+config.inactive_pane_hsb = {
+    saturation = 0.8,
+    brightness = 0.7,
+}
+
 -- Start screen centered with specific character dimensions
 wezterm.on("gui-startup", function(cmd)
     local screen = wezterm.gui.screens().main
     local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
 
-    -- Get the GUI window
     local gui_window = window:gui_window()
 
-    -- Let the window render with the initial_cols and initial_rows first
-    -- Then get its actual pixel size to calculate center position
-    -- wezterm.sleep_ms(0)
-
-    -- Get the actual window dimensions after it's created with 120x24 chars
     local width = gui_window:get_dimensions().pixel_width
     local height = gui_window:get_dimensions().pixel_height
 
-    -- Calculate center position
     local x = (screen.width - width) * 0.75
     local y = (screen.height - height) * 0.65
 
-    -- Set the position to center the window
     gui_window:set_position(x, y)
 end)
 
